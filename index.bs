@@ -1,5 +1,5 @@
 <pre class='metadata'>
-Title: Requirements for Network of Terms Implementations
+Title: Candidate Requirements for Network of Terms Implementations
 Shortname: nde-network-of-terms-implementations
 Level: 1
 Status: LS
