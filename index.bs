@@ -108,10 +108,17 @@ for example ‘material’.
 
 ### Display error messages ### {#errors}
 
-> [Errors](https://docs.nde.nl/services/network-of-terms/graphql) from the Network of Terms *MUST* be shown to [=collection managers=].
+> [Errors](https://docs.nde.nl/services/network-of-terms/graphql) from the Network of Terms API *MUST* be shown to [=collection managers=].
 
-This communicates to users that they are searching live in external sources that may be periodically unavailable, 
-through [no fault](https://status.netwerkdigitaalerfgoed.nl) of the Network of Terms.
+The Network of Terms queries [=terminology sources=] in real time. Each source returns either a list of [=terms=] or an error.
+The API defines two error types:
+
+- **TimeoutError**: the [=terminology source=] did not respond within the [timeout period](https://docs.nde.nl/services/network-of-terms/graphql/#timeouts).
+- **ServerError**: the [=terminology source=] responded with an error.
+
+Because errors are reported per source, other sources may still return results successfully.
+Displaying these errors communicates to [=collection managers=] that some sources may be [periodically unavailable](https://termennetwerk.netwerkdigitaalerfgoed.nl/en/sources),
+through no fault of the Network of Terms.
 
 ### Send multilingual queries ### {#multilingual-queries}
 
