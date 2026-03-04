@@ -25,19 +25,22 @@ Definitions {#definitions}
 ===========
 
 : <dfn>Collection manager</dfn>
-:: A person who creates heritage object metadata in a [=collection management system=] and links terms to those objects.
+:: A person who creates metadata records in a [=collection management system=] and links terms to those records.
 
 : <dfn>Configurator</dfn>
 :: A special type of [=collection manager=] who configures the [=collection management system=] for searching the Network of Terms, without requiring vendor modifications.
 
 : <dfn>Collection management system</dfn>
-:: A software application for creating, editing, and publishing heritage object metadata that implements the Network of Terms API.
+:: A software application for creating, editing, and publishing metadata records that implements the Network of Terms API.
+
+: <dfn>Term</dfn>
+:: A concept from a [=terminology source=], identified by a URI, with properties such as prefLabel, altLabel, scopeNote, and broader/narrower relations.
 
 : <dfn>Terminology source</dfn>
-:: A source of terms, such as a thesaurus or vocabulary, that is available through the Network of Terms.
+:: A source of [=terms=], such as a thesaurus or vocabulary, that is available through the Network of Terms.
 
 : <dfn>Vendor</dfn>
-:: The organization that supplies the [=collection management system=].
+:: An organization that supplies a [=collection management system=].
 
 Requirements {#requirements}
 ============
@@ -49,9 +52,9 @@ Terminology sources {#sources}
 
 ### Search in selected sources ### {#search-sources}
 
-> [=Collection manager=] searches *MUST* be executed only in selected terminology sources and *MUST NOT* default to searching all sources.
+> Searches by [=collection managers=] *MUST* be executed only in selected [=terminology sources=] and *MUST NOT* default to searching all sources.
 
-NDE has observed implementations querying all sources (by default). This makes the user wait needlessly for slow terminology sources and puts unnecessary load on terminology sources.
+NDE has observed implementations querying all sources by default. This makes users wait needlessly for slow sources and puts unnecessary load on [=terminology sources=].
 
 ### Select sources ### {#select-sources}
 
@@ -63,29 +66,28 @@ Allowing customers to make [their own selection](https://termennetwerk.netwerkdi
 
 > When new [=terminology sources=] are added to the Network of Terms, they *MUST* become available to [=configurators=] for selection.
 
-Being dependent on [=vendors=] to add terminology sources slows down lead times.
+Dependence on [=vendors=] to add [=terminology sources=] slows down lead times.
 
 ### Identify sources by URI ### {#identify}
 
-> To identify [=terminology sources=]. their URI *MUST* be used; distribution information *MUST NOT* be hardcoded.
+> [=Terminology sources=] *MUST* be identified by their dataset URI. Distribution information *MUST NOT* be hardcoded but *MUST* be retrieved dynamically from the Network of Terms.
 
-Distribution information may change over time (e.g. the terminology source’s SPARQL endpoint), but the dataset’s URI will remain the same.
+Distribution information may change over time (e.g. a terminology source’s SPARQL endpoint), but the dataset URI will remain the same.
 
 Search terms {#search-terms}
 ----------------------------
 
 ### Debounce queries ### {#debounce-queries}
 
-> [=Collection management systems=] *MUST* debounce [=collection manager=] search queries, 
-waiting for strings of 3 or more characters before querying the Network of Terms.
+> [=Collection management systems=] *MUST* debounce [=collection manager=] search queries
+and *MUST NOT* send queries of fewer than 3 characters to the Network of Terms.
 
-Reduces load on terminology sources; many terminology sources don’t handle short search strings well.
+This reduces load on [=terminology sources=]; many don’t handle short search strings well.
 
 ### Display complete term information ### {#term-info}
 
-> All [information from the Network of Terms](https://docs.nde.nl/services/network-of-terms/graphql/#terms) *MUST* be displayed
-without truncation in search results.
-> This includes prefLabel, altLabel, scopeNote, and broader/narrower terms.
+> All [information from the Network of Terms](https://docs.nde.nl/services/network-of-terms/graphql/#terms) *MUST* be accessible
+in search results without truncation, including prefLabel, altLabel, scopeNote, and broader/narrower terms.
 
 [=Collection managers=] need to see all relevant information about terms to differentiate terms 
 and make informed decisions about which terms to link.
@@ -93,7 +95,7 @@ and make informed decisions about which terms to link.
 ### Display source information ### {#source-info}
 
 > For each term, its [source](https://docs.nde.nl/services/network-of-terms/graphql/#source) *MUST* be shown,
-including name, alternateName (short name) and creator name and alternateName (short name).
+including the source’s name and alternateName, and the creator’s name and alternateName.
 
 Helps [=collection managers=] select a term from a source appropriate to the resource and the property they are editing,
 for example ‘material’.
@@ -107,9 +109,9 @@ through [no fault](https://status.netwerkdigitaalerfgoed.nl) of the Network of T
 
 ### Send multilingual queries ### {#multilingual-queries}
 
-> [=Collection management systems=] *MUST* send [multilingual queries](https://docs.nde.nl/blog/2025/03/24/multilingual-results/) to the Network of Terms.
+> [=Collection management systems=] *MUST* include a [`languages` parameter](https://docs.nde.nl/services/network-of-terms/graphql#multilingual-queries) in queries to the Network of Terms.
 
-Users have observed labels in multiple languages being combined in a single search result, which is confusing and hard to read.
+Without a language parameter, the Network of Terms returns labels in all available languages combined in a single search result, which is confusing and hard to read.
 
 ### Identify client in requests ### {#user-agent}
 
@@ -129,14 +131,14 @@ View terms {#view-terms}
 
 ### Store term URIs ### {#store-term-uris}
 
-> The URI for each linked term *MUST* be stored in the [=collection management system=].
+> The URI for each linked [=term=] *MUST* be stored in the [=collection management system=].
 
 To maintain stable references to terms, implementations must store the term’s identifier. 
 This also enables looking up the term later, to refresh its information in the collection management system.
 
 ### Display term information ### {#view-term-info}
 
-> When viewing heritage objects in the [=collection management system=],
+> When viewing metadata records in the [=collection management system=],
 > all linked term information *MUST* be displayed,
 > including [[#term-info|term information]] and [[#source-info|source information]].
 
@@ -144,7 +146,7 @@ This provides context to [=collection managers=] when they are viewing objects.
 
 ### Cache term information ### {#cache-terms}
 
-> Term information *MAY* be cached but *MUST* then be periodically refreshed from the Network of Terms.
+> Term information *MAY* be cached but *MUST* then be refreshed from the Network of Terms at a configurable interval.
 
 Caching reduces load on terminology sources. However, users must be presented with recent term information.
 
@@ -153,8 +155,8 @@ Publish links to terms {#publish-links}
 
 ### Publish term URIs ### {#publish-term-uris}
 
-> Linked term URIs *MUST* be included in published datasets.
-> prefLabels *MAY* be included.
+> Linked [=term=] URIs *MUST* be included in published datasets.
+> The [=term’s=] prefLabel *SHOULD* be included as a literal value alongside the URI.
 
 Consumers of the dataset should have access to linked terms. 
 This requirement is in accordance with [[SCHEMA-AP-NDE#implementation-of-the-nde-network-of-terms]].
