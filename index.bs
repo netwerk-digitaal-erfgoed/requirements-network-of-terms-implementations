@@ -80,10 +80,15 @@ Search terms {#search-terms}
 
 ### Debounce queries ### {#debounce-queries}
 
-> [=Collection management systems=] *MUST* debounce [=collection manager=] search queries
-and *MUST NOT* send queries of fewer than 3 characters to the Network of Terms.
+> [=Collection management systems=] *MUST* debounce search queries by [=collection managers=].
 
-This reduces load on [=terminology sources=]; many don’t handle short search strings well.
+This prevents excessive requests to [=terminology sources=] while the [=collection manager=] is still typing.
+
+### Minimum query length ### {#min-query-length}
+
+> [=Collection management systems=] *MUST NOT* send queries shorter than 3 characters to the Network of Terms.
+
+Many [=terminology sources=] don’t handle short search strings well.
 
 ### Display complete term information ### {#term-info}
 
