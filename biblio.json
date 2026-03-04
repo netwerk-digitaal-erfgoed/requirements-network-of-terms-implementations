@@ -3,6 +3,15 @@
     "href": "https://dera.netwerkdigitaalerfgoed.nl",
     "title": "Digital Heritage Reference Architecture"
   },
+  "nde-alignment": {
+    "href": "https://netwerk-digitaal-erfgoed.github.io/cm-implementation-guidelines/",
+    "title": "Implementation guidelines for NDE alignment",
+    "authors": [
+      "Sjors de Valk",
+      "Ivo Zandhuis",
+      "Bob Coret"
+    ]
+  },
   "nde-cms": {
     "href": "https://docs.nde.nl/requirements-collection-management-systems/",
     "title": "Requirements for Collection Management Systems",
