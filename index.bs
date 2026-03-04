@@ -59,15 +59,16 @@ NDE has observed implementations querying all sources by default. This makes use
 
 ### Select sources ### {#select-sources}
 
-> [=Configurators=] *MUST* be able to select which [=terminology sources=] are available for searching without requiring [=vendor=] involvement.
+> [=Configurators=] *MUST* be able to select which [=terminology sources=] are available for searching in the [=collection management system=] without requiring [=vendor=] involvement.
 
-Allowing customers to make [their own selection](https://termennetwerk.netwerkdigitaalerfgoed.nl/en/sources), and being able to adapt it later as need arises, improves the adoption speed of the Network of Terms.
+Allowing customers to make [their own selection](https://termennetwerk.netwerkdigitaalerfgoed.nl/en/sources), 
+and being able to adapt it later as need arises, improves the adoption speed of the Network of Terms.
 
 ### New sources immediately available ### {#new-sources}
 
 > When new [=terminology sources=] are added to the Network of Terms, they *MUST* become available to [=configurators=] for selection.
 
-Dependence on [=vendors=] to add [=terminology sources=] slows down lead times.
+Dependence on [=vendors=] to add [=terminology sources=] delays [=collection managers=] from being able to use new sources.
 
 ### Identify sources by URI ### {#identify}
 
@@ -101,9 +102,9 @@ and make informed decisions about which terms to link.
 ### Display source information ### {#source-info}
 
 > For each term, its [source](https://docs.nde.nl/services/network-of-terms/graphql/#source) *MUST* be shown,
-including the source’s name and alternateName, and the creator’s name and alternateName.
+including the source’s name and alternateName (short name), and the creator’s name and alternateName.
 
-Helps [=collection managers=] select a term from a source appropriate to the resource and the property they are editing,
+This helps [=collection managers=] select a term from a source appropriate to the resource and the property they are editing,
 for example ‘material’.
 
 ### Display error messages ### {#errors}
@@ -128,16 +129,15 @@ Without a language parameter, the Network of Terms returns labels in all availab
 
 ### Identify client in requests ### {#user-agent}
 
-> [=Collection management systems=] *MUST* send a User-Agent HTTP header identifying the system and version to the Network of Terms.
+> [=Collection management systems=] *MUST* send a User-Agent HTTP header identifying the system and its version to the Network of Terms.
 
-Helps NDE to monitor usage and advise vendors in optimizing their implementations.
+This helps NDE to monitor usage and advise vendors in optimizing their implementations.
 
 ### Distinguish previously linked terms ### {#distinguish-linked-terms}
 
-> [=Collection management systems=] *MAY* distinguish previously linked terms in search results through highlighting or prioritization.
+> [=Collection management systems=] *MAY* visually distinguish previously linked terms in search results through highlighting or prioritization.
 
-Improves term usage consistency within the dataset and interlinking between datasets,
-which becomes easier if fewer different terms are used.
+When [=collection managers=] reuse previously linked [=terms=], this improves consistency within the dataset and strengthens interlinking between datasets.
 
 View terms {#view-terms}
 ------------------------
@@ -155,13 +155,13 @@ This also enables looking up the term later, to refresh its information in the c
 > all linked term information *MUST* be displayed,
 > including [[#term-info|term information]] and [[#source-info|source information]].
 
-This provides context to [=collection managers=] when they are viewing objects.
+This provides context to [=collection managers=] when they are viewing records.
 
 ### Cache term information ### {#cache-terms}
 
 > Term information *MAY* be cached but *MUST* then be refreshed from the Network of Terms at a configurable interval.
 
-Caching reduces load on terminology sources. However, users must be presented with recent term information.
+Caching reduces load on [=terminology sources=]. However, users must be presented with recent term information.
 
 Publish links to terms {#publish-links}
 ---------------------------------------
