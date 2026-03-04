@@ -6,7 +6,7 @@ Status: LS
 Markup Shorthands: css yes, markdown yes
 URL: https://docs.nde.nl/requirements-network-of-terms-implementations/
 Editor: David de Boer, Netwerk Digitaal Erfgoed https://www.netwerkdigitaalerfgoed.nl, david@ddeboer.nl, https://github.com/ddeboer
-!Version: 0.0.0
+!Version: <a href="#v0.1.0">0.1.0</a>
 Abstract: This document describes requirements for implementing the [Network of Terms API](https://docs.nde.nl/services/network-of-terms/graphql) in collection management systems. By following these requirements, implementers enable users to efficiently search for and link to terms from terminology sources.
 </pre>
 
@@ -166,4 +166,8 @@ Changes {#changes}
 ==================
 
 <!-- CHANGELOG-START -->
+Version 0.1.0 (2026-03-04) {#v0.1.0}
+----------
+
+- Initial version.
 <!-- CHANGELOG-END -->
